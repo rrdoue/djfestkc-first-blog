@@ -11,21 +11,29 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import environs
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7np@(95esv*2dzh)8k@fn#lbl@2jma138w72)$ju_-c-krkji2'
+# SECRET_KEY = 'django-insecure-7np@(95esv*2dzh)8k@fn#lbl@2jma138w72)$ju_-c-krkji2'
+
+# Added with help from Arianne Dee's Intro to Django tutorial
+env = environs.Env()              # Get os environ
+env.read_env(BASE_DIR / 'djfestkc' / 'env' / 'prd.env')   # Read *.env file
+
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Set to False for production and override in local_settings
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.pythonanywhere.com']
+# Set for production and override in local_settings
+ALLOWED_HOSTS = ['raydoue.pythonanywhere.com']
 
 
 # Application definition
@@ -123,3 +131,8 @@ STATIC_ROOT = BASE_DIR / 'static'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
