@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from djfestkc_blog.views import redirect_view # added as required to call the redirect action below
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', redirect_view) # added to temporarily use a redirect from the root of the site
 ]
