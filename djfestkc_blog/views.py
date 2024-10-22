@@ -4,5 +4,5 @@ from django.shortcuts import render, redirect
 
 # Added to redirect from a usually valid home or index page to a valid url
 def redirect_view(request):
-    response = redirect('/admin')
+    response = redirect('admin/djfestkc_blog/post/')
     return response
